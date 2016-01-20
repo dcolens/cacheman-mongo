@@ -1,35 +1,32 @@
 {
   "name": "cacheman-mongo-did",
   "version": "1.0.2",
-  "description": "MongoDB standalone caching library for Node.JS and also cache engine for cacheman",
-  "author": "Jonathan Brumley <cayasso@gmail.com>",
-  "main": "./node/index",
+  "description": "cacheman mongo using mongo TTL",
+  "main": "./node/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "babel": "^5.8.34",
+    "mongodb-uri": "^0.9.7",
+    "mongodb": "^2.1.4",
+    "pre-commit": "^1.1.2",
+    "thunky": "^0.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.4"
+  },
   "scripts": {
-    "test": "make test",
-    "prepublish": "make"
+    "test": "make test"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/dcolens/cacheman-mongo.git"
+    "url": "git+https://github.com/dcolens/cacheman-mongo.git"
   },
-  "keywords": [
-    "cache",
-    "mongodb",
-    "caching",
-    "mongo",
-    "store",
-    "ttl",
-    "cacheman"
-  ],
+  "author": "",
   "license": "MIT",
-  "devDependencies": {
-    "babel": "^5.8.29",
-    "mocha": "*"
+  "bugs": {
+    "url": "https://github.com/dcolens/cacheman-mongo/issues"
   },
-  "dependencies": {
-    "mongodb": "^2.0.47",
-    "mongodb-uri": "^0.9.7",
-    "pre-commit": "^1.1.2",
-    "thunky": "^0.1.0"
-  }
+  "homepage": "https://github.com/dcolens/cacheman-mongo#readme"
 }

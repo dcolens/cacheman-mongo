@@ -110,7 +110,7 @@ describe('cacheman-mongo', function () {
   });
 
   it('should expire key', function (done) {
-    this.timeout(0);
+    this.timeout(2000);
     cache.set('test7', { a: 1 }, 1, function (err) {
       if (err) return done(err);
       setTimeout(function () {
@@ -119,7 +119,7 @@ describe('cacheman-mongo', function () {
           assert.equal(data, null);
           done();
         });
-      }, 1100);
+      }, 1500);
     });
   });
 

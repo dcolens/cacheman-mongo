@@ -1,5 +1,5 @@
 {
-  "name": "cacheman-mongo",
+  "name": "cacheman-mongo-did",
   "version": "1.0.2",
   "description": "MongoDB standalone caching library for Node.JS and also cache engine for cacheman",
   "author": "Jonathan Brumley <cayasso@gmail.com>",

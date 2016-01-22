@@ -73,12 +73,12 @@ var MongoStore = (function () {
     }
 
     conn = conn || 'mongodb://127.0.0.1:27017';
-    this.coll = options.collection || 'cacheman';
+    var coll = this.coll = options.collection || 'cacheman';
     this.compression = options.compression || false;
     this.ready = (0, _thunky2['default'])(function (cb) {
 
       function createIndex(err, db) {
-        db.cacheman.ensureIndex({ 'expireAt': 1 }, { expireAfterSeconds: 0 }, function (err) {
+        db.ensureIndex(coll, { 'expireAt': 1 }, { expireAfterSeconds: 0 }, function (err) {
           cb(err, db);
         });
       }
@@ -86,7 +86,8 @@ var MongoStore = (function () {
       if ('string' === typeof conn) {
         _mongodb.MongoClient.connect(conn, options, function (err, db) {
           if (err) return cb(err);
-          createIndex(null, _this.client = db);
+          _this.client = db;
+          createIndex(null, _this.client);
         });
       } else {
         if (_this.client) return createIndex(null, _this.client);
@@ -127,6 +128,11 @@ var MongoStore = (function () {
         db.collection(_this2.coll).findOne({ key: key }, function (err, data) {
           if (err) return fn(err);
           if (!data) return fn(null, null);
+          //Mongo's TTL might have a delay, to fully respect the TTL, it is best to validate it in get.
+          if (data.expireAt.getTime() < Date.now()) {
+            _this2.del(key);
+            return fn(null, null);
+          }
           try {
             if (data.compressed) return decompress(data.value, fn);
             fn(null, data.value);
